@@ -3,10 +3,10 @@
 import pygame
 import sys
 
-from pygame.sprite import Sprite
-
+# from pygame.sprite import Sprite
 from sudoku_settings import Settings
 from sudoku_block import Block
+from sudoku_section import Section
 
 class Sudoku:
     """Sudoku puzzle game"""
@@ -18,12 +18,15 @@ class Sudoku:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         self.screen.fill(self.settings.screen_bg_color)
         
-        self.blocks = pygame.sprite.Group()
-        
+        self.sections = pygame.sprite.Group()
         for num in range(1,10):
-            block = Block(num, self)
-            self.blocks.add(block)
+            section = Section(num, self)
+            self.sections.add(section)
         
+        # self.blocks = pygame.sprite.Group()
+        # for num in range(1,82):
+            # block = Block(num, self)
+            # self.blocks.add(block)
         # self.blocks.draw(self.screen)
     
     
@@ -65,8 +68,10 @@ class Sudoku:
         ## Redraw the screen during each pass through the loop.
         self.screen.fill(self.settings.screen_bg_color)
         
-        for block in self.blocks.sprites():
-            block.draw_block()
+        for section in self.sections.sprites():
+            section.draw_section()
+        # for block in self.blocks.sprites():
+            # block.draw_block()
         
         ## Make the most recently drawn screen visible.
         pygame.display.flip()
